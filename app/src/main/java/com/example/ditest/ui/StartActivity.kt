@@ -11,14 +11,23 @@ import javax.inject.Inject
 
 class StartActivity : AppCompatActivity(), HasAndroidInjector {
 
-	@Inject
-	lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		AndroidInjection.inject(this)
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_start)
-	}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_start)
 
-	override fun androidInjector(): AndroidInjector<Any> = androidInjector
+        openCurrencies()
+    }
+
+    private fun openCurrencies() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, CurrenciesFragment.newInstance())
+            .addToBackStack(CurrenciesFragment::class.java.name)
+            .commit()
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

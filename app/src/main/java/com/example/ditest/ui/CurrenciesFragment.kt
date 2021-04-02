@@ -5,35 +5,82 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.ditest.R
+import com.example.ditest.domain.entity.Currency
 import com.example.ditest.presentation.CurrenciesViewModel
 import com.example.ditest.presentation.factory.ViewModelFactory
 import com.example.ditest.presentation.factory.injectViewModel
+import com.example.ditest.presentation.state.CurrenciesState
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.currencies_fragment.*
 import javax.inject.Inject
 
 class CurrenciesFragment : Fragment(), HasAndroidInjector {
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+	companion object {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+		fun newInstance():CurrenciesFragment =
+			CurrenciesFragment()
+	}
 
-    private val viewModel: CurrenciesViewModel = injectViewModel(viewModelFactory)
+	@Inject
+	lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
+	@Inject
+	lateinit var viewModelFactory: ViewModelFactory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.currencies_fragment, container, false)
-    }
+	private val viewModel: CurrenciesViewModel = injectViewModel(viewModelFactory)
 
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+	override fun onAttach(context: Context) {
+		AndroidSupportInjection.inject(this)
+		super.onAttach(context)
+	}
+
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		return inflater.inflate(R.layout.currencies_fragment, container, false)
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+
+		swipeRefresh.setOnRefreshListener { viewModel.refreshList() }
+
+		viewModel.state.observe(viewLifecycleOwner, Observer { applyState(it) })
+		viewModel.loadCurrencies()
+	}
+
+	private fun applyState(state: CurrenciesState) {
+		when (state) {
+			CurrenciesState.Loading    -> applyLoadingState()
+			is CurrenciesState.Content -> applyContentState(state.currencyList)
+			CurrenciesState.Error      -> applyErrorState()
+		}
+	}
+
+	private fun applyLoadingState() {
+		swipeRefresh.isVisible = false
+		progress.isVisible = true
+	}
+
+	private fun applyContentState(currencies: List<Currency>) {
+		swipeRefresh.isVisible = false
+		progress.isVisible = true
+
+		currencyList.adapter = CurrenciesAdapter(currencies)
+	}
+
+	private fun applyErrorState() {
+		swipeRefresh.isVisible = false
+		progress.isVisible = false
+		Toast.makeText(requireContext(), getString(R.string.error_message), Toast.LENGTH_SHORT).show()
+	}
+
+	override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }
