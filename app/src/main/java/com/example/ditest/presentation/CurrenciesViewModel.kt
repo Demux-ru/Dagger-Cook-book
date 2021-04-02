@@ -35,7 +35,9 @@ class CurrenciesViewModel @Inject constructor(
     private fun getCurrencies(){
         disposable = getCurrencyListUseCase()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ _state.value = CurrenciesState.Content(it) }, ::proceedError)
+            .subscribe({
+                _state.value = CurrenciesState.Content(it)
+            }, ::proceedError)
     }
 
     private fun proceedError(throwable: Throwable) {

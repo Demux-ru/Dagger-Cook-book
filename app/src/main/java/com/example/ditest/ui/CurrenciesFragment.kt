@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.ditest.R
 import com.example.ditest.domain.entity.Currency
 import com.example.ditest.presentation.CurrenciesViewModel
@@ -26,7 +27,7 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 
 	companion object {
 
-		fun newInstance():CurrenciesFragment =
+		fun newInstance(): CurrenciesFragment =
 			CurrenciesFragment()
 	}
 
@@ -34,9 +35,9 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 	lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
 	@Inject
-	lateinit var viewModelFactory: ViewModelFactory
+	lateinit var viewModelFactory: ViewModelProvider.Factory
 
-	private val viewModel: CurrenciesViewModel = injectViewModel(viewModelFactory)
+	 lateinit var viewModel: CurrenciesViewModel
 
 	override fun onAttach(context: Context) {
 		AndroidSupportInjection.inject(this)
@@ -49,6 +50,8 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+
+		viewModel = injectViewModel(viewModelFactory)
 
 		swipeRefresh.setOnRefreshListener { viewModel.refreshList() }
 
@@ -70,8 +73,8 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 	}
 
 	private fun applyContentState(currencies: List<Currency>) {
-		swipeRefresh.isVisible = false
-		progress.isVisible = true
+		swipeRefresh.isVisible = true
+		progress.isVisible = false
 
 		currencyList.adapter = CurrenciesAdapter(currencies)
 	}

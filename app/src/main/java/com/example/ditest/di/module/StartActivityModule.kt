@@ -3,13 +3,13 @@ package com.example.ditest.di.module
 import android.app.Activity
 import com.example.ditest.di.ActivityScope
 import com.example.ditest.di.FragmentScope
-import com.example.ditest.ui.StartActivity
 import com.example.ditest.ui.CurrenciesFragment
+import com.example.ditest.ui.StartActivity
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@Module
+@Module(includes = [ViewModelModule::class])
 interface StartActivityModule {
 
     @Binds
@@ -18,5 +18,5 @@ interface StartActivityModule {
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [CurrenciesFragmentModule::class])
-    fun provideValutesFragment(): CurrenciesFragment
+    fun provideCurrenciesFragment(): CurrenciesFragment
 }
