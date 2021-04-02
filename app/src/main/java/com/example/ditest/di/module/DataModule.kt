@@ -1,10 +1,10 @@
 package com.example.ditest.di.module
 
-import com.example.ditest.data.datasource.ValuteDataSource
-import com.example.ditest.data.datasource.ValuteDataSourceImpl
-import com.example.ditest.data.repository.ValuteRepositoryImpl
+import com.example.ditest.data.datasource.CurrenciesDataSource
+import com.example.ditest.data.datasource.CurrenciesDataSourceImpl
+import com.example.ditest.data.repository.CurrenciesRepositoryImpl
 import com.example.ditest.di.AppScope
-import com.example.ditest.domain.repositry.ValuteRepository
+import com.example.ditest.domain.repositry.CurrenciesRepository
 import dagger.Binds
 import dagger.Module
 
@@ -13,10 +13,10 @@ interface DataModule {
 
     @Binds
     @AppScope
-    fun bindValuteDataSource(dataSource: ValuteDataSourceImpl): ValuteDataSource
+    fun bindCurrenciesDataSource(dataSource: CurrenciesDataSourceImpl): CurrenciesDataSource
 
 
     @Binds
     @AppScope
-    fun bindSomeRepository(repository: ValuteRepositoryImpl): ValuteRepository
+    fun bindCurrenciesRepository(repository: CurrenciesRepositoryImpl): CurrenciesRepository
 }

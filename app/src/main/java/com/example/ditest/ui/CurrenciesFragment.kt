@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.ditest.R
-import com.example.ditest.presentation.ValutesViewModel
+import com.example.ditest.presentation.CurrenciesViewModel
 import com.example.ditest.presentation.factory.ViewModelFactory
 import com.example.ditest.presentation.factory.injectViewModel
 import dagger.android.AndroidInjector
@@ -16,7 +16,7 @@ import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ValutesFragment : Fragment(), HasAndroidInjector {
+class CurrenciesFragment : Fragment(), HasAndroidInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -24,7 +24,7 @@ class ValutesFragment : Fragment(), HasAndroidInjector {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: ValutesViewModel = injectViewModel(viewModelFactory)
+    private val viewModel: CurrenciesViewModel = injectViewModel(viewModelFactory)
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -32,7 +32,7 @@ class ValutesFragment : Fragment(), HasAndroidInjector {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.valutes_fragment, container, false)
+        return inflater.inflate(R.layout.currencies_fragment, container, false)
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector

@@ -1,16 +1,16 @@
 package com.example.ditest.data
 
 import com.example.ditest.data.model.ResponseModel
-import com.example.ditest.domain.entity.Valute
+import com.example.ditest.domain.entity.Currency
 import javax.inject.Inject
 
 class ValuteConvertor @Inject constructor() {
 
-    fun convert(from: ResponseModel): List<Valute> =
-        from.valute?.values
+    fun convert(from: ResponseModel): List<Currency> =
+        from.currency?.values
             ?.toList()
             ?.map { valuteModel ->
-                Valute(
+                Currency(
                     iD = valuteModel.iD.orEmpty(),
                     name = valuteModel.name.orEmpty(),
                     numCode = valuteModel.numCode.orEmpty(),

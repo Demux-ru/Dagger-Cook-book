@@ -1,6 +1,6 @@
 package com.example.ditest.data.model
 
-data class ValuteModel(
+data class CurrencyModel(
     var iD: String?,
     var numCode: String?,
     var charCode: String?,

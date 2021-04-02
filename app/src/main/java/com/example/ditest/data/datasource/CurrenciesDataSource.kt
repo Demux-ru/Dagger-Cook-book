@@ -1,22 +1,22 @@
 package com.example.ditest.data.datasource
 
-import com.example.ditest.data.api.ValuteApiClient
+import com.example.ditest.data.api.CurrencyApiClient
 import com.example.ditest.data.model.ResponseModel
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-interface ValuteDataSource {
+interface CurrenciesDataSource {
 
     fun getList(): Single<ResponseModel>
 }
 
-class ValuteDataSourceImpl @Inject constructor(
-    private val valuteApiClient: ValuteApiClient
-) : ValuteDataSource {
+class CurrenciesDataSourceImpl @Inject constructor(
+    private val currencyApiClient: CurrencyApiClient
+) : CurrenciesDataSource {
 
     override fun getList(): Single<ResponseModel> =
-        valuteApiClient.getList()
+        currencyApiClient.getList()
             .subscribeOn(Schedulers.io())
 
 }

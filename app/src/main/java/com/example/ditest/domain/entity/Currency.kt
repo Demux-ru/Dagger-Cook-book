@@ -1,6 +1,6 @@
 package com.example.ditest.domain.entity
 
-data class Valute(
+data class Currency(
     var iD: String,
     var numCode: String,
     var charCode: String,

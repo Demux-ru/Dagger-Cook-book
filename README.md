@@ -29,8 +29,8 @@ class ApiModule {
 
     @Provides
     @AppScope
-    fun provideValuteApiClient(retrofit: Retrofit): ValuteApiClient =
-        retrofit.create(ValuteApiClient::class.java)
+    fun provideCurrenciesApiClient(retrofit: Retrofit): CurrenciesApiClient =
+        retrofit.create(CurrenciesApiClient::class.java)
 
     @Provides
     @AppScope
@@ -62,12 +62,12 @@ interface DataModule {
 
     @Binds
     @AppScope
-    fun bindValuteDataSource(dataSource: ValuteDataSourceImpl): ValuteDataSource
+    fun bindCurrenciesDataSource(dataSource: CurrenciesDataSourceImpl): CurrenciesDataSource
 
 
     @Binds
     @AppScope
-    fun bindSomeRepository(repository: ValuteRepositoryImpl): ValuteRepository
+    fun bindCurrenciesRepository(repository: CurrenciesRepositoryImpl): CurrenciesRepository
 }
 ```
 
@@ -86,12 +86,12 @@ interface DataModule {
 
 ```
 @Module
-interface ValutesFragmentModule {
+interface CurrenciesFragmentModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ValutesViewModel::class)
-    fun bindValuteViewModel(viewModel: ValutesViewModel): ViewModel
+    @ViewModelKey(CurrenciesViewModel::class)
+    fun bindCurrenciesViewModel(viewModel: CurrenciesViewModel): ViewModel
 }
 ```
 Далее создадим модуль для активити, в котором укажем, что ранее созданный фрагмент будет использоваться внутри активити.
@@ -105,8 +105,8 @@ interface StartActivityModule {
     fun bindStartActivity(activity: StartActivity): Activity
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [ValutesFragmentModule::class])
-    fun provideValutesFragment(): ValutesFragment
+    @ContributesAndroidInjector(modules = [CurrenciesFragmentModule::class])
+    fun provideCurrenciesFragment(): CurrenciesFragment
 }
 ```
 
@@ -211,7 +211,7 @@ class StartActivity : AppCompatActivity(), HasAndroidInjector {
 #### Используем нужные зависимости во фрагменте
 
 ```
-lass ValutesFragment : Fragment(), HasAndroidInjector {
+lass CurrenciesFragment : Fragment(), HasAndroidInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -219,7 +219,7 @@ lass ValutesFragment : Fragment(), HasAndroidInjector {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: ValutesViewModel = injectViewModel(viewModelFactory)
+    private val viewModel: CurrenciesViewModel = injectViewModel(viewModelFactory)
 
     override fun onAttach(context: Context) {
             AndroidSupportInjection.inject(this)
@@ -227,7 +227,7 @@ lass ValutesFragment : Fragment(), HasAndroidInjector {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.valutes_fragment, container, false)
+            return inflater.inflate(R.layout.Currencies_fragment, container, false)
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector

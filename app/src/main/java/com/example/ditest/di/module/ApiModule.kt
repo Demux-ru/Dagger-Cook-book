@@ -1,7 +1,7 @@
 package com.example.ditest.di.module
 
 import com.example.ditest.data.api.ApiConstant.BASE_URL
-import com.example.ditest.data.api.ValuteApiClient
+import com.example.ditest.data.api.CurrencyApiClient
 import com.example.ditest.di.AppScope
 import com.google.gson.Gson
 import dagger.Module
@@ -15,8 +15,8 @@ class ApiModule {
 
     @Provides
     @AppScope
-    fun provideValuteApiClient(retrofit: Retrofit): ValuteApiClient =
-        retrofit.create(ValuteApiClient::class.java)
+    fun provideCurrencyApiClient(retrofit: Retrofit): CurrencyApiClient =
+        retrofit.create(CurrencyApiClient::class.java)
 
     @Provides
     @AppScope

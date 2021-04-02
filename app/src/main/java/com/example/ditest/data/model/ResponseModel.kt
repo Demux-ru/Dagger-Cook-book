@@ -7,5 +7,5 @@ data class ResponseModel(
     var previousDate: OffsetDateTime?,
     var previousURL: String?,
     var timestamp: OffsetDateTime?,
-    var valute: Map<String, ValuteModel>?
+    var currency: Map<String, CurrencyModel>?
 )
