@@ -19,8 +19,7 @@ class CurrenciesAdapter(private val items: List<Currency>) : RecyclerView.Adapte
     }
 }
 
-class CurrencyViewHolder(parent: ViewGroup) :
-    RecyclerView.ViewHolder(parent.inflate(R.layout.currency_item)) {
+class CurrencyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.currency_item)) {
 
     fun bind(item: Currency) {
         with(itemView) {

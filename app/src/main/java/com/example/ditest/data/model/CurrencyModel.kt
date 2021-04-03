@@ -1,11 +1,26 @@
 package com.example.ditest.data.model
 
-data class CurrencyModel(
-    var iD: String?,
-    var numCode: String?,
-    var charCode: String?,
-    var nominal: Long,
-    var name: String?,
-    var value: Long,
-    var previous: Long
-)
+import com.google.gson.annotations.SerializedName
+
+class CurrencyModel {
+    @SerializedName("ID")
+    var id: String? = null
+
+    @SerializedName("NumCode")
+    var numCode: String? = null
+
+    @SerializedName("CharCode")
+    var charCode: String? = null
+
+    @SerializedName("Nominal")
+    var nominal: Int? = null
+
+    @SerializedName("Name")
+    var name: String? = null
+
+    @SerializedName("Value")
+    var value: Double? = null
+
+    @SerializedName("Previous")
+    var previous: Double? = null
+}

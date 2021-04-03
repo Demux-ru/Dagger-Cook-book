@@ -1,11 +1,21 @@
 package com.example.ditest.data.model
 
-import java.time.OffsetDateTime
+import com.google.gson.annotations.SerializedName
 
-data class ResponseModel(
-    var date: OffsetDateTime?,
-    var previousDate: OffsetDateTime?,
-    var previousURL: String?,
-    var timestamp: OffsetDateTime?,
-    var currency: Map<String, CurrencyModel>?
-)
+class ResponseModel {
+
+    @SerializedName("Date")
+    var date: String? = null
+
+    @SerializedName("PreviousDate")
+    var previousDate: String? = null
+
+    @SerializedName("PreviousURL")
+    var previousURL: String? = null
+
+    @SerializedName("Timestamp")
+    var timestamp: String? = null
+
+    @SerializedName("Valute")
+    var currency: Map<String, CurrencyModel>? = null
+}

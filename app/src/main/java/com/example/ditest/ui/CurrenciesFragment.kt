@@ -82,6 +82,7 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 	private fun applyErrorState() {
 		swipeRefresh.isVisible = false
 		progress.isVisible = false
+
 		Toast.makeText(requireContext(), getString(R.string.error_message), Toast.LENGTH_SHORT).show()
 	}
 
