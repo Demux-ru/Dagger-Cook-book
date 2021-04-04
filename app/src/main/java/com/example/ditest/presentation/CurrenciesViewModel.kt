@@ -3,14 +3,17 @@ package com.example.ditest.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ditest.domain.usecase.GetCurrencyByIdUseCase
 import com.example.ditest.domain.usecase.GetCurrencyListUseCase
+import com.example.ditest.domain.usecase.SaveCurrenciesUseCase
 import com.example.ditest.presentation.state.CurrenciesState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class CurrenciesViewModel @Inject constructor(
-	private val getCurrencyListUseCase: GetCurrencyListUseCase
+	private val getCurrencyListUseCase: GetCurrencyListUseCase,
+	private val saveCurrenciesUseCase: SaveCurrenciesUseCase
 ) : ViewModel() {
 
 	private var disposable: Disposable? = null
@@ -35,7 +38,12 @@ class CurrenciesViewModel @Inject constructor(
 	private fun getCurrencies() {
 		disposable = getCurrencyListUseCase()
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe({ _state.value = CurrenciesState.Content(it) }, ::proceedError)
+			.subscribe(
+				{ currencies ->
+					saveCurrenciesUseCase(currencies)
+					_state.value = CurrenciesState.Content(currencies)
+					hashCode()
+				}, ::proceedError)
 	}
 
 	private fun proceedError(throwable: Throwable) {

@@ -3,6 +3,7 @@ package com.example.ditest.data.model
 import com.google.gson.annotations.SerializedName
 
 class CurrencyModel {
+
 	@SerializedName("ID")
 	var id: String? = null
 

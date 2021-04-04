@@ -6,4 +6,6 @@ import io.reactivex.Single
 interface CurrenciesRepository {
 
     fun getList():Single<List<Currency>>
+    fun saveList(currencies: List<Currency>)
+    fun getSavedList(): List<Currency>
 }
