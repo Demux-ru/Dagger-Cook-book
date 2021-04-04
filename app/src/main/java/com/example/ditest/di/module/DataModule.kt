@@ -11,12 +11,11 @@ import dagger.Module
 @Module(includes = [ApiModule::class])
 interface DataModule {
 
-    @Binds
-    @AppScope
-    fun bindCurrenciesDataSource(dataSource: CurrenciesDataSourceImpl): CurrenciesDataSource
+	@Binds
+	@AppScope
+	fun bindCurrenciesDataSource(dataSource: CurrenciesDataSourceImpl): CurrenciesDataSource
 
-
-    @Binds
-    @AppScope
-    fun bindCurrenciesRepository(repository: CurrenciesRepositoryImpl): CurrenciesRepository
+	@Binds
+	@AppScope
+	fun bindCurrenciesRepository(repository: CurrenciesRepositoryImpl): CurrenciesRepository
 }

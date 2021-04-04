@@ -8,15 +8,15 @@ import javax.inject.Inject
 
 interface CurrenciesDataSource {
 
-    fun getList(): Single<ResponseModel>
+	fun getList(): Single<ResponseModel>
 }
 
 class CurrenciesDataSourceImpl @Inject constructor(
-    private val currencyApiClient: CurrencyApiClient
+	private val currencyApiClient: CurrencyApiClient
 ) : CurrenciesDataSource {
 
-    override fun getList(): Single<ResponseModel> =
-        currencyApiClient.getList()
-            .subscribeOn(Schedulers.io())
+	override fun getList(): Single<ResponseModel> =
+		currencyApiClient.getList()
+			.subscribeOn(Schedulers.io())
 
 }

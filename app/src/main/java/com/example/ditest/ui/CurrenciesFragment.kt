@@ -37,7 +37,7 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 	@Inject
 	lateinit var viewModelFactory: ViewModelProvider.Factory
 
-	 lateinit var viewModel: CurrenciesViewModel
+	lateinit var viewModel: CurrenciesViewModel
 
 	override fun onAttach(context: Context) {
 		AndroidSupportInjection.inject(this)
@@ -62,24 +62,34 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 	private fun applyState(state: CurrenciesState) {
 		when (state) {
 			CurrenciesState.Loading    -> applyLoadingState()
+			CurrenciesState.Refresh    -> applyRefreshState()
 			is CurrenciesState.Content -> applyContentState(state.currencyList)
 			CurrenciesState.Error      -> applyErrorState()
 		}
 	}
 
 	private fun applyLoadingState() {
+		swipeRefresh.isRefreshing = false
 		swipeRefresh.isVisible = false
 		progress.isVisible = true
 	}
 
 	private fun applyContentState(currencies: List<Currency>) {
+		swipeRefresh.isRefreshing = false
 		swipeRefresh.isVisible = true
 		progress.isVisible = false
 
 		currencyList.adapter = CurrenciesAdapter(currencies)
 	}
 
+	private fun applyRefreshState() {
+		swipeRefresh.isRefreshing = true
+		swipeRefresh.isVisible = true
+		progress.isVisible = false
+	}
+
 	private fun applyErrorState() {
+		swipeRefresh.isRefreshing = false
 		swipeRefresh.isVisible = false
 		progress.isVisible = false
 

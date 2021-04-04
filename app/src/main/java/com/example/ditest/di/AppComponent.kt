@@ -10,19 +10,19 @@ import dagger.Component
 import dagger.android.AndroidInjector
 
 @Component(modules = [
-        AppModule::class,
-        DataModule::class
-    ])
+	AppModule::class,
+	DataModule::class
+])
 @AppScope
 interface AppComponent : AndroidInjector<DiTestApp> {
 
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<DiTestApp>() {
+	@Component.Builder
+	abstract class Builder : AndroidInjector.Builder<DiTestApp>() {
 
-        @BindsInstance
-        abstract fun app(app: Application): Builder
+		@BindsInstance
+		abstract fun app(app: Application): Builder
 
-        @BindsInstance
-        abstract fun context(context: Context): Builder
-    }
+		@BindsInstance
+		abstract fun context(context: Context): Builder
+	}
 }

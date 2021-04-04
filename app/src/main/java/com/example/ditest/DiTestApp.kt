@@ -10,18 +10,18 @@ import javax.inject.Inject
 
 class DiTestApp : Application(), HasAndroidInjector {
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+	@Inject
+	lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    override fun onCreate() {
-        super.onCreate()
+	override fun onCreate() {
+		super.onCreate()
 
-        DaggerAppComponent.builder()
-            .app(this)
-            .context(this)
-            .create(this)
-            .inject(this)
-    }
+		DaggerAppComponent.builder()
+			.app(this)
+			.context(this)
+			.create(this)
+			.inject(this)
+	}
 
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+	override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

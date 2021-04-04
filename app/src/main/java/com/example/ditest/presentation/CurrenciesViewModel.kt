@@ -10,42 +10,40 @@ import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class CurrenciesViewModel @Inject constructor(
-    private val getCurrencyListUseCase: GetCurrencyListUseCase
+	private val getCurrencyListUseCase: GetCurrencyListUseCase
 ) : ViewModel() {
 
-    private var disposable: Disposable? = null
+	private var disposable: Disposable? = null
 
-    private val _state = MutableLiveData<CurrenciesState>()
-    val state: LiveData<CurrenciesState> = _state
+	private val _state = MutableLiveData<CurrenciesState>()
+	val state: LiveData<CurrenciesState> = _state
 
-    fun loadCurrencies() {
-        _state.value = CurrenciesState.Loading
+	fun loadCurrencies() {
+		_state.value = CurrenciesState.Loading
 
-        getCurrencies()
-    }
+		getCurrencies()
+	}
 
-    fun refreshList() {
-        if (_state.value !is CurrenciesState.Content){
-            return
-        }
+	fun refreshList() {
+		if (_state.value !is CurrenciesState.Content) {
+			return
+		}
 
-        getCurrencies()
-    }
+		getCurrencies()
+	}
 
-    private fun getCurrencies(){
-        disposable = getCurrencyListUseCase()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _state.value = CurrenciesState.Content(it)
-            }, ::proceedError)
-    }
+	private fun getCurrencies() {
+		disposable = getCurrencyListUseCase()
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({ _state.value = CurrenciesState.Content(it) }, ::proceedError)
+	}
 
-    private fun proceedError(throwable: Throwable) {
-        _state.value = CurrenciesState.Error
-    }
+	private fun proceedError(throwable: Throwable) {
+		_state.value = CurrenciesState.Error
+	}
 
-    override fun onCleared() {
-        disposable?.dispose()
-        super.onCleared()
-    }
+	override fun onCleared() {
+		disposable?.dispose()
+		super.onCleared()
+	}
 }

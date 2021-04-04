@@ -10,8 +10,8 @@ import dagger.multibindings.IntoMap
 @Module
 interface CurrenciesFragmentModule {
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(CurrenciesViewModel::class)
-    fun bindCurrenciesViewModel(viewModel: CurrenciesViewModel): ViewModel
+	@Binds
+	@IntoMap
+	@ViewModelKey(CurrenciesViewModel::class)
+	fun bindCurrenciesViewModel(viewModel: CurrenciesViewModel): ViewModel
 }

@@ -8,6 +8,8 @@ sealed class CurrenciesState {
 
 	object Loading : CurrenciesState()
 
+	object Refresh : CurrenciesState()
+
 	object Error : CurrenciesState()
 
 }

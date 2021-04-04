@@ -16,38 +16,38 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class ApiModule {
 
-    @Provides
-    @AppScope
-    fun provideCurrencyApiClient(retrofit: Retrofit): CurrencyApiClient =
-        retrofit.create(CurrencyApiClient::class.java)
+	@Provides
+	@AppScope
+	fun provideCurrencyApiClient(retrofit: Retrofit): CurrencyApiClient =
+		retrofit.create(CurrencyApiClient::class.java)
 
-    @Provides
-    @AppScope
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient?,
-        gsonConverterFactory: GsonConverterFactory?
-    ): Retrofit = Retrofit.Builder()
-        .client(okHttpClient)
-        .baseUrl(BASE_URL)
-        .addConverterFactory(gsonConverterFactory)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
+	@Provides
+	@AppScope
+	fun provideRetrofit(
+		okHttpClient: OkHttpClient?,
+		gsonConverterFactory: GsonConverterFactory?
+	): Retrofit = Retrofit.Builder()
+		.client(okHttpClient)
+		.baseUrl(BASE_URL)
+		.addConverterFactory(gsonConverterFactory)
+		.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+		.build()
 
-    @Provides
-    @AppScope
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
+	@Provides
+	@AppScope
+	fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
+		GsonConverterFactory.create(gson)
 
-    @Provides
-    @AppScope
-    fun provideOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            )
-            .build()
+	@Provides
+	@AppScope
+	fun provideOkHttpClient(): OkHttpClient =
+		OkHttpClient.Builder()
+			.addInterceptor(
+				HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+			)
+			.build()
 
-    @Provides
-    @AppScope
-    fun provideGson(): Gson = Gson()
+	@Provides
+	@AppScope
+	fun provideGson(): Gson = Gson()
 }

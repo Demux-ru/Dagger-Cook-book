@@ -9,7 +9,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Module(includes = [AndroidSupportInjectionModule::class])
 interface AppModule {
 
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [StartActivityModule::class])
-    fun injectStartActivity(): StartActivity
+	@ActivityScope
+	@ContributesAndroidInjector(modules = [StartActivityModule::class])
+	fun injectStartActivity(): StartActivity
 }

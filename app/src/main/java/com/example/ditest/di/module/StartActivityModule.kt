@@ -12,11 +12,11 @@ import dagger.android.ContributesAndroidInjector
 @Module(includes = [ViewModelModule::class])
 interface StartActivityModule {
 
-    @Binds
-    @ActivityScope
-    fun bindStartActivity(activity: StartActivity): Activity
+	@Binds
+	@ActivityScope
+	fun bindStartActivity(activity: StartActivity): Activity
 
-    @FragmentScope
-    @ContributesAndroidInjector(modules = [CurrenciesFragmentModule::class])
-    fun provideCurrenciesFragment(): CurrenciesFragment
+	@FragmentScope
+	@ContributesAndroidInjector(modules = [CurrenciesFragmentModule::class])
+	fun provideCurrenciesFragment(): CurrenciesFragment
 }

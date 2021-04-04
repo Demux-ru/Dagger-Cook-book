@@ -9,7 +9,7 @@ import dagger.Reusable
 @Module
 interface ViewModelModule {
 
-    @Binds
-    @Reusable
-    fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+	@Binds
+	@Reusable
+	fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

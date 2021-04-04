@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface CurrencyApiClient {
 
-    @GET("daily_json.js")
-    fun getList(): Single<ResponseModel>
+	@GET("daily_json.js")
+	fun getList(): Single<ResponseModel>
 }
