@@ -1,4 +1,4 @@
-package com.example.ditest.data
+package com.example.ditest.data.converter
 
 import com.example.ditest.data.model.ResponseModel
 import com.example.ditest.domain.entity.Currency

@@ -1,6 +1,6 @@
 package com.example.ditest.data.repository
 
-import com.example.ditest.data.CurrencyConverter
+import com.example.ditest.data.converter.CurrencyConverter
 import com.example.ditest.data.datasource.CurrenciesDataSource
 import com.example.ditest.domain.entity.Currency
 import com.example.ditest.domain.repositry.CurrenciesRepository
