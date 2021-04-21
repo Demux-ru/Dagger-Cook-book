@@ -4,7 +4,8 @@ import com.example.ditest.data.converter.CurrencyConverter
 import com.example.ditest.data.datasource.CurrenciesDataSource
 import com.example.ditest.domain.entity.Currency
 import com.example.ditest.domain.repositry.CurrenciesRepository
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CurrenciesRepositoryImpl @Inject constructor(
@@ -12,9 +13,9 @@ class CurrenciesRepositoryImpl @Inject constructor(
 	private val converter: CurrencyConverter
 ) : CurrenciesRepository {
 
-	override fun getList(): Single<List<Currency>> =
+	override fun getList(): Flow<List<Currency>> =
 		dataSource.getList()
-			.map(converter::convert)
+			.map { converter.convert(it) }
 
 	override fun saveList(currencies: List<Currency>) {
 		dataSource.setCurrenciesList(converter.revertList(currencies))

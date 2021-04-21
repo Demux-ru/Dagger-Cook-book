@@ -2,13 +2,13 @@ package com.example.ditest.domain.usecase
 
 import com.example.ditest.domain.entity.Currency
 import com.example.ditest.domain.repositry.CurrenciesRepository
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetCurrencyListUseCase @Inject constructor(
-	private val currenciesRepository: CurrenciesRepository
+    private val currenciesRepository: CurrenciesRepository
 ) {
 
-	operator fun invoke(): Single<List<Currency>> =
-		currenciesRepository.getList()
+    operator fun invoke(): Flow<List<Currency>> =
+        currenciesRepository.getList()
 }

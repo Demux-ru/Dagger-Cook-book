@@ -6,11 +6,9 @@ import com.example.ditest.di.AppScope
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -30,7 +28,6 @@ class ApiModule {
 		.client(okHttpClient)
 		.baseUrl(BASE_URL)
 		.addConverterFactory(gsonConverterFactory)
-		.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 		.build()
 
 	@Provides
