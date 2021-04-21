@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ditest.R
 import com.example.ditest.domain.entity.Currency
-import com.example.ditest.inflate
+import com.example.ditest.ui.extension.inflate
 import kotlinx.android.synthetic.main.currency_item.view.*
 
 class CurrenciesAdapter(private val items: List<Currency>) : RecyclerView.Adapter<CurrencyViewHolder>() {

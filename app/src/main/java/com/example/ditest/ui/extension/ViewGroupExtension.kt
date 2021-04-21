@@ -1,4 +1,4 @@
-package com.example.ditest
+package com.example.ditest.ui.extension
 
 import android.view.LayoutInflater
 import android.view.View
