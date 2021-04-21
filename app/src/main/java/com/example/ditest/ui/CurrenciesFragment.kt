@@ -1,29 +1,26 @@
 package com.example.ditest.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.ditest.R
 import com.example.ditest.domain.entity.Currency
 import com.example.ditest.presentation.CurrenciesViewModel
-import com.example.ditest.presentation.factory.ViewModelFactory
 import com.example.ditest.presentation.factory.injectViewModel
 import com.example.ditest.presentation.state.CurrenciesState
+import com.example.ditest.ui.base.BaseFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.currencies_fragment.*
 import javax.inject.Inject
 
-class CurrenciesFragment : Fragment(), HasAndroidInjector {
+class CurrenciesFragment : BaseFragment(), HasAndroidInjector {
 
 	companion object {
 
@@ -38,11 +35,6 @@ class CurrenciesFragment : Fragment(), HasAndroidInjector {
 	lateinit var viewModelFactory: ViewModelProvider.Factory
 
 	lateinit var viewModel: CurrenciesViewModel
-
-	override fun onAttach(context: Context) {
-		AndroidSupportInjection.inject(this)
-		super.onAttach(context)
-	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.currencies_fragment, container, false)
