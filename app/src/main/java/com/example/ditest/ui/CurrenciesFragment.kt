@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.ditest.R
 import com.example.ditest.domain.entity.Currency
 import com.example.ditest.presentation.CurrenciesViewModel
@@ -18,6 +18,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.currencies_fragment.*
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class CurrenciesFragment : BaseFragment(), HasAndroidInjector {
@@ -47,7 +48,12 @@ class CurrenciesFragment : BaseFragment(), HasAndroidInjector {
 
 		swipeRefresh.setOnRefreshListener { viewModel.refreshList() }
 
-		viewModel.state.observe(viewLifecycleOwner, Observer { applyState(it) })
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collect { state ->
+                applyState(state)
+            }
+        }
+
 		viewModel.loadCurrencies()
 	}
 
