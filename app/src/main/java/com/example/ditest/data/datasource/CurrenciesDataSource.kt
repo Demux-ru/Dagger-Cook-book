@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 interface CurrenciesDataSource {
 
-	fun getList(): Flow<ResponseModel>
+	suspend fun getList(): ResponseModel
 	fun setCurrenciesList(currencies: List<CurrencyModel>)
 	fun getSavedCurrenciesList(): List<CurrencyModel>
 }
@@ -26,9 +26,8 @@ class CurrenciesDataSourceImpl @Inject constructor(
 		const val CURRENCIES_KEY = "CURRENCIES_KEY"
 	}
 
-	override fun getList(): Flow<ResponseModel> =
-		flow { emit(currencyApiClient.getList()) }
-			.flowOn(Dispatchers.IO)
+	override suspend fun getList(): ResponseModel =
+		currencyApiClient.getList()
 
 	override fun setCurrenciesList(currencies: List<CurrencyModel>) {
 		preferences.setCurrenciesList(CURRENCIES_KEY, currencies)
