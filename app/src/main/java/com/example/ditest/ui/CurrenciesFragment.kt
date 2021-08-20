@@ -14,23 +14,17 @@ import com.example.ditest.presentation.CurrenciesViewModel
 import com.example.ditest.presentation.factory.injectViewModel
 import com.example.ditest.presentation.state.CurrenciesState
 import com.example.ditest.ui.base.BaseFragment
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.currencies_fragment.*
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
-class CurrenciesFragment : BaseFragment(), HasAndroidInjector {
+class CurrenciesFragment : BaseFragment() {
 
 	companion object {
 
 		fun newInstance(): CurrenciesFragment =
 			CurrenciesFragment()
 	}
-
-	@Inject
-	lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
 	@Inject
 	lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -93,6 +87,4 @@ class CurrenciesFragment : BaseFragment(), HasAndroidInjector {
 
 		Toast.makeText(requireContext(), getString(R.string.error_message), Toast.LENGTH_SHORT).show()
 	}
-
-	override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }
